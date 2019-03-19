@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Jsonp } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class VideosService {
-    constructor(
-        private jsonp: Jsonp) { }
+    constructor(private http: HttpClient) { }
 
     getVideos(pageId: number) {
-        let apiUrl = `${environment.omdbApi}/?s=one&apikey=${environment.omdbKey}&page=${pageId}`;
-        // return this.http.get(`${environment.omdbApi}/?s=one&apikey=${environment.omdbKey}&page=${pageId}`);
-        return this.jsonp.request(apiUrl);
+        return this.http.get(`${environment.omdbApi}/?s=one&apikey=${environment.omdbKey}&page=${pageId}`);
     }
 }

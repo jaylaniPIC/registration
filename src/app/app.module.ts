@@ -2,7 +2,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {JsonpModule, Jsonp, Response} from '@angular/http';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
@@ -23,8 +22,7 @@ import { RatingComponent } from './rating/rating.component';
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        routing,
-        JsonpModule
+        routing
     ],
     declarations: [
         AppComponent,

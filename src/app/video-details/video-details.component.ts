@@ -19,7 +19,6 @@ export class VideoDetailsComponent implements OnInit {
     ) {
         this.route.params.subscribe(params => {
             this.imdbId = params.imdbId;
-            console.log(params);
         });
     }
 

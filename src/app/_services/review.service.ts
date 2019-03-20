@@ -9,8 +9,7 @@ export class ReviewService {
     constructor(private http: HttpClient) { }
 
     getAllReviews(userId: number) {
-        console.log(userId, 'userId');
-        return this.http.get(`${environment.apiUrl}/reviews`);
+        return this.http.get(`${environment.apiUrl}/reviews/` + userId);
     }
 
     review(review: any) {

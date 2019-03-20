@@ -9,7 +9,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log('intercept', request);
         // array in local storage for registered users
         let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
         let reviews: any[] = JSON.parse(localStorage.getItem('reviews')) || [];
@@ -75,9 +74,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 let newUser = request.body;
 
                 // validation
-                let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
+                let duplicateUser = users.filter(user => { return user.emailId === newUser.emailId; }).length;
                 if (duplicateUser) {
-                    return throwError({ error: { message: 'Username "' + newUser.username + '" is already taken' } });
+                    return throwError({ error: { message: 'Email id "' + newUser.emailId + '" is already taken' } });
                 }
 
                 // save new user
@@ -91,10 +90,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // Methods to get all ratings by current user
             // get reviews
-            if (request.url.endsWith('/reviews') && request.method === 'GET') {
+            if (request.url.match(/\/reviews\/\d+$/)  && request.method === 'GET') {
                 // check for fake auth token in header and return only for valid user
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    return of(new HttpResponse({ status: 200, body: reviews }));
+                    const urlParts = request.url.split('/');
+                    const id = parseInt(urlParts[urlParts.length - 1]);
+                    const matchedReviews = reviews.filter(review => { return review.userId === id; });
+                    const reviewData = matchedReviews.length ? matchedReviews : null;
+                    return of(new HttpResponse({ status: 200, body: reviewData }));
                 } else {
                     // return 401 not authorised if token is null or invalid
                     return throwError({ status: 401, error: { message: 'Unauthorised' } });
@@ -108,7 +111,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
                 // validation
                 const duplicateReview = reviews.filter(review => {
-                    return review.userid === newReview.userid && review.imdbId === newReview.imdbId;
+                    return review.userId === newReview.userId && review.imdbId === newReview.imdbId;
                 }).length;
                 if (duplicateReview) {
                     return throwError({ error: { message: 'You have already rated this video "' } });

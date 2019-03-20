@@ -8,10 +8,22 @@
     <img class="poster-image" [src]="detail.Poster" style="height: 250px; width: 250px;" />
 
     <br />
-    <div class="">Select your rating</div>
-    <input type="range" class="form-control-range" id="formControlRange" min="0" max="10"
-        (input)="testRating($event.target.value)">
+    <div class="margin-top-10">Select your rating</div>
+    <div class="slidecontainer">
+        <input type="range" class="form-control-range slider" id="formControlRange" min="0" max="10"
+            (input)="testRating($event.target.value)">
+    </div>
+    <div class="margin-top-10">How likey you are</div>
 
-    <button class="btn btn-success" (click)="saveRating()"> Rate Video </button>
-    <button class="btn" (click)="goBackToDetails()"> Cancel </button>
+    <div class="category">
+        <div class="category-items less">Less Likely</div>
+        <div class="category-items likely">Likely</div>
+        <div class="category-items verylikely">Very Likely</div>
+        <div class="category-items extremlylikely">Extremly Likely</div>
+    </div>
+    <div class="rate-video-button">
+
+        <button class="btn btn-success rate-button" (click)="saveRating()"> Rate Video </button>
+        <button class="btn cancel-review--button" (click)="goBackToDetails()"> Cancel </button>
+    </div>
 </div>

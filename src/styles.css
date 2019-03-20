@@ -1,1 +1,78 @@
 /* You can add global styles to this file, and also import other style files */
+.pagination li {
+    border: 1px solid;
+    padding: 10px;
+}
+
+.movie-list-data {
+    cursor: pointer;
+}
+
+.rate-video-button {
+    margin-bottom: 10px;
+    float: right;
+}
+
+/*Slider styles*/
+
+.slidecontainer {
+    width: 100%;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border-radius: 10px;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.rate-button {
+    margin-right: 10px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.category-items {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    width: 170px;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.category {
+    display: inline-flex;
+    margin-bottom: 20px;
+}

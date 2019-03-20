@@ -8,7 +8,6 @@ export class VideosService {
     constructor(private http: HttpClient) { }
 
     getVideos(pageId: number) {
-        console.log('getVideos');
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -19,7 +18,6 @@ export class VideosService {
     }
 
     getVideo(imdbId: number) {
-        console.log('getVideos');
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',

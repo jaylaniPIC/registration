@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private reviewService: ReviewService
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-            console.log(user, 'user');
             this.currentUser = user;
         });
     }
@@ -36,7 +35,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     private getAllUserReviews() {
         this.reviewService.getAllReviews(this.currentUser.id).pipe(first()).subscribe(reviews => {
-            console.log(reviews, 'reviews');
             this.reviews = reviews;
         });
     }

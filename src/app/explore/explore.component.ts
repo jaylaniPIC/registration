@@ -4,19 +4,16 @@ import { VideoModel } from '@app/_models/video-model';
 import { PagerService } from '@app/_services/pager.service';
 import { VideosService } from '@app/_services/videos.service';
 import { first } from 'rxjs/operators';
-import './explore.component.scss';
-
+import './explore.component.css';
 
 @Component({ templateUrl: 'explore.component.html' })
+
 export class ExploreComponent implements OnInit {
     videos: VideoModel;
     videoList: any = [];
     pages: number;
     // pager object
     pager: any = {};
-
-    // paged items
-    pagedItems: any[];
 
     constructor(
         private videoService: VideosService,

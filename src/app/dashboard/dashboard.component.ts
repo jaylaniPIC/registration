@@ -20,12 +20,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private reviewService: ReviewService
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+            console.log(user, 'user');
             this.currentUser = user;
         });
     }
 
     ngOnInit() {
-        this.loadAllUsers();
         this.getAllUserReviews();
     }
 
@@ -34,20 +34,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.currentUserSubscription.unsubscribe();
     }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).pipe(first()).subscribe(() => {
-            this.loadAllUsers();
-        });
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll().pipe(first()).subscribe(users => {
-            this.users = users;
-        });
-    }
-
     private getAllUserReviews() {
         this.reviewService.getAllReviews(this.currentUser.id).pipe(first()).subscribe(reviews => {
+            console.log(reviews, 'reviews');
             this.reviews = reviews;
         });
     }

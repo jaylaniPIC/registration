@@ -89,51 +89,38 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return of(new HttpResponse({ status: 200 }));
             }
 
-            // delete user
-            if (request.url.match(/\/users\/\d+$/) && request.method === 'DELETE') {
+            // Methods to get all ratings by current user
+            // get reviews
+            if (request.url.endsWith('/reviews') && request.method === 'GET') {
                 // check for fake auth token in header and return only for valid user
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    // find user by id in users array
-                    let urlParts = request.url.split('/');
-                    let id = parseInt(urlParts[urlParts.length - 1]);
-                    for (let i = 0; i < users.length; i++) {
-                        let user = users[i];
-                        if (user.id === id) {
-                            // delete user
-                            users.splice(i, 1);
-                            localStorage.setItem('users', JSON.stringify(users));
-                            break;
-                        }
-                    }
-
-                    // respond 200 OK
-                    return of(new HttpResponse({ status: 200 }));
+                    return of(new HttpResponse({ status: 200, body: reviews }));
                 } else {
                     // return 401 not authorised if token is null or invalid
                     return throwError({ status: 401, error: { message: 'Unauthorised' } });
                 }
             }
 
-            // Methods to get all ratings by current user
-            // get reviews
-            if (request.url.match('/\/reviews\/\d+$/') && request.method === 'GET') {
-            console.log(request, 'request');
+            // authenticate
+            if (request.url.endsWith('/reviews/review') && request.method === 'POST') {
+                // get new user object from post body
+                let newReview = request.body;
 
-                // check for fake auth token in header and return only for valid user
-                if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                     // find user by id in users array
-                     console.log(request);
-
-                     let urlParts = request.url.split('/');
-                     let userId = parseInt(urlParts[urlParts.length - 1]);
-                     let matchedReviews = reviews.filter(review => { return review.userId === userId; });
-                     const review = matchedReviews.length ? matchedReviews : null;
- 
-                     return of(new HttpResponse({ status: 200, body: {} }));
-                } else {
-                    // return 401 not authorised if token is null or invalid
-                    return throwError({ status: 401, error: { message: 'Unauthorised' } });
+                // validation
+                const duplicateReview = reviews.filter(review => {
+                    return review.userid === newReview.userid && review.imdbId === newReview.imdbId;
+                }).length;
+                if (duplicateReview) {
+                    return throwError({ error: { message: 'You have already rated this video "' } });
                 }
+
+                // save new user
+                newReview.id = reviews.length + 1;
+                reviews.push(newReview);
+                localStorage.setItem('reviews', JSON.stringify(reviews));
+
+                // respond 200 OK
+                return of(new HttpResponse({ status: 200 }));
             }
 
             // pass through any requests not handled above

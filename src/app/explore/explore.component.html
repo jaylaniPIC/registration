@@ -1,0 +1,40 @@
+<div class="movie-list">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Type</th>
+        <th>Poster Image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="movie-list-data" (click)="navigateToDetailsPage(video.imdbID)" *ngFor='let video of videoList'>
+        <td>{{video.Title}}</td>
+        <td>{{video.Year}}</td>
+        <td>{{video.Type}}</td>
+        <td><img class="poster-image" height="250px" width="250px" [src]="video.Poster" /></td>
+      </tr>
+
+    </tbody>
+  </table>
+  <!-- pager -->
+  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <a (click)="setPage(1)">First</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+    </li>
+    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a (click)="setPage(page)">{{page}}</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a (click)="setPage(pager.currentPage + 1)">Next</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a (click)="setPage(pager.totalPages)">Last</a>
+    </li>
+  </ul>
+</div>
+<router-outlet></router-outlet>

@@ -1,8 +1,30 @@
-﻿<h1>Hi {{currentUser.name}}!</h1> {{currentUser}}
-<h3>All registered users:</h3>
-<ul>
-    <li *ngFor="let user of users">
-        {{user.name}} 
-        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-    </li>
-</ul>
+﻿<h1>Hi {{currentUser.name}}!</h1>
+<h3>All your reviews are here</h3>
+
+<div class="movie-list">
+    <table class="table table-striped" *ngIf="reviews.length > 0">
+        <thead> 
+          <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Type</th>
+            <th>Rating</th>
+            <th>Poster Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="movie-list-data" *ngFor='let review of reviews'>
+            <td>{{review.title}}</td>
+            <td>{{review.year}}</td>
+            <td>{{review.type}}</td>
+            <td>{{review.rating}}</td>
+            <td><img class="poster-image" height="250px" width="250px" [src]="review.poster" /></td>
+          </tr>
+          
+        </tbody>
+      </table>
+      <div *ngIf="reviews.length === 0">
+        Ooops, You haven't reviewd yet
+      </div>
+</div>
+<router-outlet></router-outlet>

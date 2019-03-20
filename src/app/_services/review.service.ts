@@ -10,10 +10,10 @@ export class ReviewService {
 
     getAllReviews(userId: number) {
         console.log(userId, 'userId');
-        return this.http.get<Review[]>(`${environment.apiUrl}/reviews/${userId}`);
+        return this.http.get(`${environment.apiUrl}/reviews`);
     }
 
-    review(review: Review) {
+    review(review: any) {
         return this.http.post(`${environment.apiUrl}/reviews/review`, review);
     }
 }

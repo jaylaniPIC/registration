@@ -16,6 +16,7 @@ import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { ExploreComponent } from './explore/explore.component';
 import { RatingComponent } from './rating/rating.component';
+import { VideoDetailsComponent } from './video-details/video-details.component';
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { RatingComponent } from './rating/rating.component';
         LoginComponent,
         RegisterComponent,
         ExploreComponent,
-        RatingComponent
+        RatingComponent,
+        VideoDetailsComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

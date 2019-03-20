@@ -1,26 +1,63 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-
-import { AlertService, AuthenticationService } from '@app/_services';
+import { Router } from '@angular/router';
+import { VideoModel } from '@app/_models/video-model';
+import { PagerService } from '@app/_services/pager.service';
 import { VideosService } from '@app/_services/videos.service';
+import { first } from 'rxjs/operators';
+import './explore.component.scss';
+
 
 @Component({ templateUrl: 'explore.component.html' })
 export class ExploreComponent implements OnInit {
-    videos: any = [];
+    videos: VideoModel;
+    videoList: any = [];
+    pages: number;
+    // pager object
+    pager: any = {};
+
+    // paged items
+    pagedItems: any[];
+
     constructor(
-        private videoService: VideosService
+        private videoService: VideosService,
+        private router: Router,
+        private pagerService: PagerService
     ) {
     }
 
     ngOnInit() {
-        this.getAllVideos();
+        setTimeout(() => {
+            this.getInitialVideo();
+        }, 1000);
     }
 
-    getAllVideos() {
-        this.videoService.getVideos(1).pipe(first()).subscribe(videos => {
-            this.videos = videos;
+    getInitialVideo() {
+        this.videoService.getVideos(1).pipe(first()).subscribe(data => {
+            this.videos = data;
+
+            this.videoList = this.videos.Search;
+            this.pages = this.videos.totalResults / 10;
+            // initialize to page 1
+            this.setPage(1);
         });
+    }
+
+    getAllVideos(page: number) {
+        this.videoService.getVideos(page).pipe(first()).subscribe(data => {
+            this.videos = data;
+
+            this.videoList = this.videos.Search;
+            this.pages = this.videos.totalResults / 10;
+            // initialize to page 1
+        });
+    }
+
+    navigateToDetailsPage(imdbID: any) {
+        this.router.navigateByUrl('videoDetails/' + imdbID);
+    }
+    setPage(page: number) {
+        // get pager object from service
+        this.pager = this.pagerService.getPager(this.videos.totalResults, page);
+        this.getAllVideos(this.pager.currentPage);
     }
 }

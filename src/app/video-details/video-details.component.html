@@ -1,0 +1,118 @@
+<div class="pull-right">
+    <button type="button" class="btn btn-success" (click)="navigateToRating(detail.imdbID)">Rate this video</button>
+</div>
+<div class="movie-details" *ngIf="detail" >
+    <table class="table table-striped">
+        <tr>
+            <td>Title</td>
+            <td>{{detail.Title}}</td>
+        </tr>
+        <tr>
+            <td>Year</td>
+            <td>{{detail.Year}}</td>
+        </tr>
+        <tr>
+            <td>Rated</td>
+            <td>{{detail.Rated}}</td>
+        </tr>
+        <tr>
+            <td>Released</td>
+            <td>{{detail.Released}}</td>
+        </tr>
+        <tr>
+            <td>Runtime</td>
+            <td>{{detail.Runtime}}</td>
+        </tr>
+        <tr>
+            <td>Genre</td>
+            <td>{{detail.Genre}}</td>
+        </tr>
+        <tr>
+            <td>Director</td>
+            <td>{{detail.Director}}</td>
+        </tr>
+        <tr>
+            <td>Writer</td>
+            <td>{{detail.Writer}}</td>
+        </tr>
+        <tr>
+            <td>Actors</td>
+            <td>{{detail.Actors}}</td>
+        </tr>
+        <tr>
+            <td>Plot</td>
+            <td>{{detail.Plot}}</td>
+        </tr>
+        <tr>
+            <td>Language</td>
+            <td>{{detail.Language}}</td>
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td>{{detail.Country}}</td>
+        </tr>
+        <tr>
+            <td>Awards</td>
+            <td>{{detail.Awards}}</td>
+        </tr>
+        <tr>
+            <td>Poster</td>
+            <td><img class="poster-image" [src]="detail.Poster" style="height: 250px; width: 250px;" /></td>
+        </tr>
+        <tr>
+            <td>Ratings</td>
+            <td>
+                <table>
+                    <tr>
+                        <th> Source </th>
+                        <th> Value </th>
+                    </tr>
+                    <tr *ngFor=" let rate of detail.Ratings">
+                        <td>{{rate.Source}}</td>
+                        <td>{{rate.Value}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>Metascore</td>
+            <td>{{detail.Metascore}}</td>
+        </tr>
+        <tr>
+            <td>IMDB Ratings</td>
+            <td>{{detail.imdbRating}}</td>
+        </tr>
+        <tr>
+            <td>IMDB Votes</td>
+            <td>{{detail.imdbVotes}}</td>
+        </tr>
+        <tr>
+            <td>IMDB ID</td>
+            <td>{{detail.imdbID}}</td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>{{detail.Type}}</td>
+        </tr>
+        <tr>
+            <td>DVD</td>
+            <td>{{detail.DVD}}</td>
+        </tr>
+        <tr>
+            <td>BoxOffice</td>
+            <td>{{detail.BoxOffice}}</td>
+        </tr>
+        <tr>
+            <td>Production</td>
+            <td>{{detail.Production}}</td>
+        </tr>
+        <tr>
+            <td>Website</td>
+            <td>{{detail.Website}}</td>
+        </tr>
+        <tr>
+            <td>Response</td>
+            <td>{{detail.Response}}</td>
+        </tr>
+    </table>
+</div>

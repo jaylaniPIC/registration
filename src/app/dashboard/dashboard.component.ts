@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     currentUser: User;
     currentUserSubscription: Subscription;
     users: User[] = [];
-    reviews: Review[] = [];
+    reviews: any = [];
 
     constructor(
         private authenticationService: AuthenticationService,

@@ -9,7 +9,7 @@ import './explore.component.css';
 @Component({ templateUrl: 'explore.component.html' })
 
 export class ExploreComponent implements OnInit {
-    videos: VideoModel;
+    videos: any;
     videoList: any = [];
     pages: number;
     // pager object
